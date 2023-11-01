@@ -2,8 +2,15 @@ import { useState } from "react";
 import "./style.css";
 
 export default function App() {
-  const availableColors = ["Red", "Blue", "Yellow", "Green"];
+  const availableColors = [
+    "Your Color is: Red",
+    "Your Color is: Blue",
+    "Your Color is: Yellow",
+    "Your Color is: Green",
+    "You Lost",
+  ];
   const [userScore, setUserScore] = useState(0);
+  const [userHighestScore, setUserHighestScore] = useState(0);
   const [restartButton, setRestartButton] = useState(false);
   const [randomNumber, setRandomNumber] = useState(
     Math.floor(Math.random() * 4)
@@ -17,11 +24,14 @@ export default function App() {
 
   // Handle button click
   const handleButtonClick = (buttonId: string) => {
-    const number = parseInt(buttonId, 10);
+    let number = parseInt(buttonId, 10);
 
     if (number === randomNumber && !restartButton) {
       setUserScore(userScore + 1);
       handleRandomize();
+      if (userScore >= userHighestScore) {
+        setUserHighestScore(userHighestScore + 1);
+      }
     } else {
       setUserScore(0);
       setRestartButton(true);
@@ -30,7 +40,7 @@ export default function App() {
 
   return (
     <div className="mainFlex">
-      <h1 id="YourColor">Your Color is: {availableColors[randomNumber]}</h1>
+      <h1 id="YourColor">{availableColors[randomNumber]}</h1>
       <div className="buttons">
         <button
           type="button"
@@ -54,6 +64,7 @@ export default function App() {
         ></button>
       </div>
       <h2 id="score">Score: {userScore}</h2>
+      <h2 id="highestScore">Your highest score: {userHighestScore}</h2>
       {restartButton && (
         <button
           type="button"
