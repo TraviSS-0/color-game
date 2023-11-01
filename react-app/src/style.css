@@ -1,0 +1,33 @@
+#root {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+h1 {
+  font-size: 50px;
+}
+
+button {
+  width: 100px;
+  height: 50px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border: none;
+  margin-left: 40px;
+}
+
+button[id="0"] {
+  background-color: red;
+}
+
+button[id="1"] {
+  background-color: blue;
+}
+
+button[id="2"] {
+  background-color: yellow;
+}
+
+button[id="3"] {
+  background-color: green;
+}
