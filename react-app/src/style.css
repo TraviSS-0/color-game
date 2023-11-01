@@ -31,3 +31,10 @@ button[id="2"] {
 button[id="3"] {
   background-color: green;
 }
+
+button[id="restart"] {
+  box-shadow: none;
+  background-color: white;
+  border: 1px solid black;
+  margin-left: 0px;
+}

@@ -2,43 +2,35 @@ import { useState } from "react";
 import "./style.css";
 
 export default function App() {
-  // tablica z dostepnymi kolorami
-  const avaliableColors = ["Red", "Blue", "Yellow", "Green"];
+  const availableColors = ["Red", "Blue", "Yellow", "Green"];
   const [userScore, setUserScore] = useState(0);
-  const [userTopScore, setUserTopScore] = useState(0);
-
+  const [restartButton, setRestartButton] = useState(false);
   const [randomNumber, setRandomNumber] = useState(
     Math.floor(Math.random() * 4)
   );
 
-  // Funkcja do losowania nowej liczby
+  // Function to generate a new random number
   const handleRandomize = () => {
     const newRandomNumber = Math.floor(Math.random() * 4);
     setRandomNumber(newRandomNumber);
   };
 
-  //handleButtonClick
+  // Handle button click
   const handleButtonClick = (buttonId: string) => {
     const number = parseInt(buttonId, 10);
 
-    if (number === randomNumber) {
-      //DODAĆ SCORE!!!
+    if (number === randomNumber && !restartButton) {
       setUserScore(userScore + 1);
       handleRandomize();
     } else {
-      alert('You Lost! click "OK" to restart and try again');
       setUserScore(0);
-      handleRandomize();
+      setRestartButton(true);
     }
   };
 
-  if (userScore > userTopScore) {
-    setUserTopScore(userTopScore + 1);
-  }
-
   return (
     <div className="mainFlex">
-      <h1 id="YourColor">Your Color is: {avaliableColors[randomNumber]} </h1>
+      <h1 id="YourColor">Your Color is: {availableColors[randomNumber]}</h1>
       <div className="buttons">
         <button
           type="button"
@@ -62,7 +54,19 @@ export default function App() {
         ></button>
       </div>
       <h2 id="score">Score: {userScore}</h2>
-      <h2 id="topScore">Your top score: {userTopScore}</h2>
+      {restartButton && (
+        <button
+          type="button"
+          id="restart"
+          onClick={() => {
+            setRestartButton(false);
+            setUserScore(0);
+            handleRandomize();
+          }}
+        >
+          Restart
+        </button>
+      )}
     </div>
   );
 }
